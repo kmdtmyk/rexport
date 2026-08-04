@@ -10,3 +10,5 @@
 # bundle
 /bundle/*
 !/bundle/.keep
+
+Gemfile.lock
