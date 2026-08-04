@@ -5,18 +5,18 @@ module Rexport
       @records = records
     end
 
-    def to_csv
+    def to_csv(encoding: nil)
       result = ''
 
       @records.ids.each_slice(1000).each_with_index do |ids, index|
         csv = CSV.generate(force_quotes: true) do |csv|
 
           if index == 0 && respond_to?(:headers)
-            csv << headers
+            csv << headers.map{ self.class.encode(_1, encoding:) }
           end
 
           ids_to_a(ids).each do |row|
-            csv << row
+            csv << row.map{ self.class.encode(_1, encoding:) }
           end
         end
 

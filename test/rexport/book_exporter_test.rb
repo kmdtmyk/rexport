@@ -10,4 +10,12 @@ class Rexport::BookExporterTest < ActiveSupport::TestCase
     CSV
   end
 
+  test 'to_csv(shift-jis)' do
+    Book.create!(id: 1, name: '🍣', price: 100, release_date: Date.new(2026, 8, 6))
+    assert_equal BookExporter.new(Book.all).to_csv(encoding: Encoding::SJIS), <<~CSV.encode(Encoding::SJIS)
+      "id","名前","価格","発売日"
+      "1","?","100","2026-08-06"
+    CSV
+  end
+
 end
