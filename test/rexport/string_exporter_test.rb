@@ -12,8 +12,13 @@ class Rexport::StringExporterTest < ActiveSupport::TestCase
     assert_equal exporter.to_csv, <<~CSV
       "abc日本語🍣"
     CSV
-    exporter = StringExporter.new(Sample.all)
+
     assert_equal exporter.to_csv(encoding: Encoding::SJIS), <<~CSV.encode(Encoding::SJIS)
+      "abc日本語?"
+    CSV
+
+    Rexport.config.csv_default_encoding = Encoding::SJIS
+    assert_equal exporter.to_csv, <<~CSV.encode(Encoding::SJIS)
       "abc日本語?"
     CSV
   end

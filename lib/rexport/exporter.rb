@@ -8,6 +8,8 @@ module Rexport
     def to_csv(encoding: nil)
       result = ''
 
+      encoding ||= Rexport.config.csv_default_encoding
+
       @records.ids.each_slice(1000).each_with_index do |ids, index|
         csv = CSV.generate(force_quotes: true) do |csv|
 
