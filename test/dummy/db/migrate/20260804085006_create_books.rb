@@ -9,6 +9,7 @@ class CreateBooks < ActiveRecord::Migration[8.1]
     end
 
     create_table :samples do |t|
+      t.string :string
       t.date :date
       t.datetime :datetime
       t.timestamps
