@@ -1,3 +1,5 @@
+[![Ruby on Rails CI](https://github.com/kmdtmyk/rexport/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/kmdtmyk/rexport/actions/workflows/rubyonrails.yml)
+
 # Rexport
 Short description and motivation.
 
