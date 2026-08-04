@@ -3,7 +3,7 @@ class BookExporter < Rexport::Exporter
   def headers
     [
       'id',
-      '名称',
+      '名前',
       '価格',
       '発売日',
     ]
