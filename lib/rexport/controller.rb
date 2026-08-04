@@ -5,9 +5,29 @@ module Rexport
     included do
 
       def send_export(exporter, filename:, format:)
-        send_stream filename: "#{filename}.#{format}" do |stream|
-          exporter.to_csv do |data|
-            stream.write data
+        filename = "#{filename}.#{format}"
+
+        case format
+        when :csv
+          send_stream filename: do |stream|
+            exporter.to_csv do |data|
+              stream.write data
+            end
+          end
+        when :xlsx
+          response.headers['Cache-Control'] = 'no-cache'
+          response.headers['Last-Modified'] = Time.current.httpdate
+          response.headers['X-Accel-Buffering'] = 'no'
+          response.headers['Content-Encoding'] = 'identity'
+          response.headers.delete('Content-Length')
+          zip_kit_stream filename:, type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' do |stream|
+            workbook = Xlsxtream::Workbook.new(stream)
+            workbook.write_worksheet do |sheet|
+              exporter.each do |row|
+                sheet << row
+              end
+            end
+            workbook.close
           end
         end
       end

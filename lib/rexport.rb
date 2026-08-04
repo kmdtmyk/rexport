@@ -4,6 +4,7 @@ require "rexport/configration"
 require "rexport/controller"
 require "rexport/exporter"
 require "csv"
+require "xlsxtream"
 
 module Rexport
 

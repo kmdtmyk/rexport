@@ -5,6 +5,17 @@ module Rexport
       @records = records
     end
 
+    def each
+      if respond_to?(:headers)
+        yield headers.map{ self.class.encode(_1, encoding: nil) }
+      end
+      @records.ids.each_slice(1000) do |ids|
+        ids_to_a(ids).each do |row|
+          yield row.map{ self.class.encode(_1, encoding: nil) }
+        end
+      end
+    end
+
     def to_csv(encoding: nil, batch_size: nil, &block)
       result = ''
 

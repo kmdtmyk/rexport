@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "rails"
   spec.add_dependency "csv"
+  spec.add_dependency "xlsxtream"
 
   spec.add_development_dependency "pg"
 

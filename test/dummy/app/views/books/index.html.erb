@@ -15,3 +15,4 @@
 
 <%= link_to "New book", new_book_path %>
 <%= link_to "csv", url_for(request.query_parameters.merge(format: :csv)) %>
+<%= link_to "xlsx", url_for(request.query_parameters.merge(format: :xlsx)) %>
