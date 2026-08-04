@@ -4,10 +4,11 @@ RUN apk update && \
     apk add \
     build-base \
     yaml-dev \
+    postgresql-dev \
     tzdata \
     bash \
     sudo \
-    git 
+    git
 
 ARG UID=1000
 ARG GID=1000

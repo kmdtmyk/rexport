@@ -9,3 +9,10 @@ services:
     command: sh -c 'cd test/dummy; rm -f tmp/pids/server.pid; rails s -b 0.0.0.0'
     ports:
       - '80:3000'
+    depends_on:
+      - db
+  db:
+    image: postgres:18.4
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
