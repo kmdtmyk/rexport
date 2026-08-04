@@ -6,7 +6,7 @@ class BooksController < ApplicationController
     @books = Book.all
     respond_to do |format|
       format.html
-      format.csv{ send_export BookExporter.new(@books), filename: 'books.csv' }
+      format.csv{ send_export BookExporter.new(@books), filename: 'books', format: :csv }
     end
   end
 
