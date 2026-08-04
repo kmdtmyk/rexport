@@ -30,5 +30,19 @@ module Rexport
       raise "#{self.class} に #{__method__} の実装が必要です"
     end
 
+    class << self
+
+      def encode(value, encoding:)
+
+        if value.class == String && encoding.present?
+          # 互換性のない文字を変換する(shift-jisだと絵文字が含まれているとエラーになる)
+          value = value.encode(encoding, undef: :replace)
+        end
+
+        value
+      end
+
+    end
+
   end
 end
