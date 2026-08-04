@@ -20,7 +20,7 @@ module Rexport
           response.headers['X-Accel-Buffering'] = 'no'
           response.headers['Content-Encoding'] = 'identity'
           response.headers.delete('Content-Length')
-          zip_kit_stream filename:, type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' do |stream|
+          send_stream filename:, type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' do |stream|
             workbook = Xlsxtream::Workbook.new(stream)
             workbook.write_worksheet do |sheet|
               exporter.each do |row|
