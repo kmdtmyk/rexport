@@ -3,10 +3,10 @@ class <%= class_name %>Exporter < Rexport::Exporter
   def ids_to_a(ids)
     <%= class_name %>.find(ids).map do |<%= name %>|
       [
-        <%= name %>.id,
-        <%= name %>.created_at,
-        <%= name %>.updated_at,
-      ]
+      <% model_class.column_names.map do |column_name| -%>
+  <%= "#{name}.#{column_name}" -%>,
+      <% end -%>
+]
     end
   end
 

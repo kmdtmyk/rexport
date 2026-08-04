@@ -7,6 +7,12 @@ module Rexport
         template 'exporter.rb.tt', "app/exporters/#{name}_exporter.rb"
       end
 
+      private
+
+        def model_class
+          class_name.constantize
+        end
+
     end
   end
 end

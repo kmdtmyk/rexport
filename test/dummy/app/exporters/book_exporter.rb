@@ -4,6 +4,9 @@ class BookExporter < Rexport::Exporter
     Book.find(ids).map do |book|
       [
         book.id,
+        book.name,
+        book.price,
+        book.release_date,
         book.created_at,
         book.updated_at,
       ]
