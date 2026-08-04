@@ -6,6 +6,8 @@ class BookExporter < Rexport::Exporter
       '名前',
       '価格',
       '発売日',
+      'created_at',
+      'updated_at',
     ]
   end
 
@@ -16,6 +18,8 @@ class BookExporter < Rexport::Exporter
         book.name,
         book.price,
         book.release_date,
+        book.created_at,
+        book.updated_at,
       ]
     end
   end

@@ -1,0 +1,2 @@
+Rexport.config.date_format = '<%= Rexport.config.date_format %>'
+Rexport.config.datetime_format = '<%= Rexport.config.datetime_format %>'

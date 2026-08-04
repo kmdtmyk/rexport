@@ -34,6 +34,13 @@ module Rexport
 
       def encode(value, encoding:)
 
+        case value
+        when Date
+          value = I18n.l(value, format: Rexport.config.date_format)
+        when Time
+          value = I18n.l(value, format: Rexport.config.datetime_format)
+        end
+
         if value.class == String && encoding.present?
           # 互換性のない文字を変換する(shift-jisだと絵文字が含まれているとエラーになる)
           value = value.encode(encoding, undef: :replace)
