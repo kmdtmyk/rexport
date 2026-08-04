@@ -5,13 +5,13 @@ module Rexport
       @records = records
     end
 
-    def to_csv(encoding: nil)
+    def to_csv(encoding: nil, batch_size: nil, &block)
       result = ''
 
       encoding ||= Rexport.config.csv_default_encoding
 
-      @records.ids.each_slice(1000).each_with_index do |ids, index|
-        csv = CSV.generate(force_quotes: true) do |csv|
+      @records.ids.each_slice(batch_size || 1000).each_with_index do |ids, index|
+        csv_text = CSV.generate(force_quotes: true) do |csv|
 
           if index == 0 && respond_to?(:headers)
             csv << headers.map{ self.class.encode(_1, encoding:) }
@@ -22,10 +22,20 @@ module Rexport
           end
         end
 
-        result += csv
+        # blockが渡された時は変数に保持しない
+        if block_given?
+          yield csv_text
+        else
+          result += csv_text
+        end
+
       end
 
-      result
+      if block_given?
+        nil
+      else
+        result
+      end
     end
 
     def ids_to_a(ids)
