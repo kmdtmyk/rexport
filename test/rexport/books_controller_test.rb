@@ -7,11 +7,11 @@ class BooksExportTest < ActionDispatch::IntegrationTest
     Book.create!(title: 'Rails入門', price: 1000)
     get '/books.csv'
     assert_response :success
-    assert_equal response.media_type, 'text/csv'
+    assert_equal 'text/csv', response.media_type
     rows = CSV.parse(response.body, headers: true)
-    assert_equal rows.size, 1
-    assert_equal rows[0]['タイトル'], 'Rails入門'
-    assert_equal rows[0]['価格'], '1000'
+    assert_equal 1, rows.size
+    assert_equal 'Rails入門', rows[0]['タイトル']
+    assert_equal '1000', rows[0]['価格']
   end
 
 end

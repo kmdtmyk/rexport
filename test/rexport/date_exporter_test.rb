@@ -9,12 +9,12 @@ class Rexport::DateExporterTest < ActiveSupport::TestCase
   test 'to_csv' do
     Sample.create!(date: Date.new(2026, 8, 4))
     exporter = DateExporter.new(Sample.all)
-    assert_equal exporter.to_csv, <<~CSV
+    assert_equal <<~CSV, exporter.to_csv
       "2026/08/04"
     CSV
 
     Rexport.config.date_format = '%Y年%m月%d日'
-    assert_equal exporter.to_csv, <<~CSV
+    assert_equal <<~CSV, exporter.to_csv
       "2026年08月04日"
     CSV
   end

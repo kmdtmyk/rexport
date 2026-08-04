@@ -11,7 +11,7 @@ class Rexport::BookExporterTest < ActiveSupport::TestCase
       created_at: Time.new(2026, 8, 1, 2, 3, 4),
       updated_at: Time.new(2026, 8, 9, 8, 7, 6),
     )
-    assert_equal BookExporter.new(Book.all).to_csv, <<~CSV
+    assert_equal <<~CSV, BookExporter.new(Book.all).to_csv
       "id","タイトル","価格","発売日","created_at","updated_at"
       "1","book1","100","2026/08/06","2026/08/01 02:03:04","2026/08/09 08:07:06"
     CSV

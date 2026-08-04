@@ -8,7 +8,7 @@ class Rexport::IntegerExporterTest < ActiveSupport::TestCase
     end
 
     exporter = IntegerExporter.new(Sample.all)
-    assert_equal exporter.to_csv, <<~CSV
+    assert_equal <<~CSV, exporter.to_csv
       "1"
       "2"
       "3"
@@ -20,10 +20,10 @@ class Rexport::IntegerExporterTest < ActiveSupport::TestCase
     exporter.to_csv(batch_size: 3) do |data|
       result << data
     end
-    assert_equal result, [
+    assert_equal [
       "\"1\"\n\"2\"\n\"3\"\n",
       "\"4\"\n\"5\"\n"
-    ]
+    ], result
 
     # ブロックが渡された時は返り値なしにする
     assert_nil exporter.to_csv{}
