@@ -3,9 +3,9 @@ class BookExporter < Rexport::Exporter
   def headers
     [
       'id',
-      'name',
-      'price',
-      'release_date',
+      '名称',
+      '価格',
+      '発売日',
     ]
   end
 

@@ -13,10 +13,6 @@ module Rexport
           @model_class ||= class_name.constantize
         end
 
-        def column_names
-          model_class.column_names
-        end
-
     end
   end
 end
