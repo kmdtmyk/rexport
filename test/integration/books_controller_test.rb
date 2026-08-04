@@ -1,9 +1,8 @@
 require "test_helper"
 
-class BooksExportTest < ActionDispatch::IntegrationTest
+class BooksControllerTest < ActionDispatch::IntegrationTest
 
   test 'CSVをダウンロードできる' do
-
     Book.create!(title: 'Rails入門', price: 1000)
     get '/books.csv'
     assert_response :success
