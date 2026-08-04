@@ -10,7 +10,11 @@ module Rexport
       private
 
         def model_class
-          class_name.constantize
+          @model_class ||= class_name.constantize
+        end
+
+        def column_names
+          model_class.column_names
         end
 
     end

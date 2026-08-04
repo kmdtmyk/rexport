@@ -8,12 +8,18 @@ module Rexport
     def to_csv
       result = ''
 
-      @records.ids.each_slice(1000).each do |ids|
+      @records.ids.each_slice(1000).each_with_index do |ids, index|
         csv = CSV.generate(force_quotes: true) do |csv|
+
+          if index == 0 && respond_to?(:headers)
+            csv << headers
+          end
+
           ids_to_a(ids).each do |row|
             csv << row
           end
         end
+
         result += csv
       end
 
