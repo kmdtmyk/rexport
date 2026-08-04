@@ -21,4 +21,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_085006) do
     t.date "release_date", comment: "発売日"
     t.datetime "updated_at", null: false
   end
+
+  create_table "samples", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "date"
+    t.datetime "datetime"
+    t.datetime "updated_at", null: false
+  end
 end

@@ -7,5 +7,12 @@ class CreateBooks < ActiveRecord::Migration[8.1]
 
       t.timestamps
     end
+
+    create_table :samples do |t|
+      t.date :date
+      t.datetime :datetime
+      t.timestamps
+    end
+
   end
 end
