@@ -16,9 +16,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_085006) do
 
   create_table "books", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "name", comment: "名前"
     t.integer "price", comment: "価格"
     t.date "release_date", comment: "発売日"
+    t.string "title", comment: "タイトル"
     t.datetime "updated_at", null: false
   end
 

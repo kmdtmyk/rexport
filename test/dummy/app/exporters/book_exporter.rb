@@ -3,7 +3,7 @@ class BookExporter < Rexport::Exporter
   def headers
     [
       'id',
-      '名前',
+      'タイトル',
       '価格',
       '発売日',
       'created_at',
@@ -15,7 +15,7 @@ class BookExporter < Rexport::Exporter
     Book.find(ids).map do |book|
       [
         book.id,
-        book.name,
+        book.title,
         book.price,
         book.release_date,
         book.created_at,
