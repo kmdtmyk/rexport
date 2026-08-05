@@ -12,3 +12,16 @@ if ActiveSupport::TestCase.respond_to?(:fixture_paths=)
   ActiveSupport::TestCase.file_fixture_path = File.expand_path("fixtures", __dir__) + "/files"
   ActiveSupport::TestCase.fixtures :all
 end
+
+class ActiveSupport::TestCase
+
+  # def before_setup
+  #   super
+  # end
+
+  def after_teardown
+    Rexport.instance_variable_set(:@config, nil)
+    super
+  end
+
+end

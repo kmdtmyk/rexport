@@ -2,10 +2,6 @@ require "test_helper"
 
 class Rexport::ArrayExporterTest < ActiveSupport::TestCase
 
-  teardown do
-    Rexport.instance_variable_set(:@config, nil)
-  end
-
   test 'to_csv' do
     array = [
       ['id', 'name', 'date'],

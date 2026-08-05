@@ -2,10 +2,6 @@ require "test_helper"
 
 class Rexport::DatetimeExporterTest < ActiveSupport::TestCase
 
-  teardown do
-    Rexport.instance_variable_set(:@config, nil)
-  end
-
   test 'to_csv' do
     sample = Sample.create!(datetime: Time.new(2026, 8, 4, 12, 34, 56))
     exporter = DatetimeExporter.new(Sample.all)
