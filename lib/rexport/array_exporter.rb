@@ -10,6 +10,10 @@ module Rexport
 
         encoding ||= Rexport.config.csv_default_encoding
 
+        if (encoding == nil || encoding == Encoding::UTF_8) && Rexport.config.csv_utf8_bom == true
+          yield "\uFEFF"
+        end
+
         csv_text = CSV.generate(force_quotes: true) do |csv|
           if respond_to?(:headers)
             csv << headers.map{ Rexport::Formatter.format(_1, encoding: nil) }

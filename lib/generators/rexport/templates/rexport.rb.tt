@@ -1,3 +1,4 @@
 Rexport.config.date_format = '<%= Rexport.config.date_format %>'
 Rexport.config.datetime_format = '<%= Rexport.config.datetime_format %>'
 Rexport.config.csv_default_encoding = Encoding::UTF_8
+Rexport.config.csv_utf8_bom = true

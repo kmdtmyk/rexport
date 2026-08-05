@@ -15,9 +15,11 @@ end
 
 class ActiveSupport::TestCase
 
-  # def before_setup
-  #   super
-  # end
+  def before_setup
+    super
+    # テストではbom無しをデフォルトとする
+    Rexport.config.csv_utf8_bom = false
+  end
 
   def after_teardown
     Rexport.instance_variable_set(:@config, nil)

@@ -10,6 +10,10 @@ module Rexport
 
         encoding ||= Rexport.config.csv_default_encoding
 
+        if (encoding == nil || encoding == Encoding::UTF_8) && Rexport.config.csv_utf8_bom == true
+          yield "\uFEFF"
+        end
+
         @records.ids.each_slice(batch_size || 1000).each_with_index do |ids, index|
           csv_text = CSV.generate(force_quotes: true) do |csv|
 
