@@ -3,6 +3,7 @@ require "rexport/railtie"
 require "rexport/configration"
 require "rexport/controller"
 require "rexport/exporter"
+require "rexport/formatter"
 require "csv"
 require "xlsxtream"
 
