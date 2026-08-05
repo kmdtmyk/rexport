@@ -59,9 +59,13 @@ module Rexport
 
         case value
         when Date
-          value = I18n.l(value, format: Rexport.config.date_format)
+          if Rexport.config.date_format.present?
+            value = I18n.l(value, format: Rexport.config.date_format)
+          end
         when Time
-          value = I18n.l(value, format: Rexport.config.datetime_format)
+          if Rexport.config.datetime_format.present?
+            value = I18n.l(value, format: Rexport.config.datetime_format)
+          end
         end
 
         if value.class == String && encoding.present?
