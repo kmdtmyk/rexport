@@ -15,9 +15,6 @@ module Rexport
         end
 
         csv_text = CSV.generate(force_quotes: true) do |csv|
-          if respond_to?(:headers)
-            csv << headers.map{ Rexport::Formatter.format(_1, encoding:) }
-          end
           @array.each do |row|
             csv << row.map{ Rexport::Formatter.format(_1, encoding:) }
           end
@@ -27,9 +24,6 @@ module Rexport
 
       else
 
-        if respond_to?(:headers)
-          yield headers.map{ Rexport::Formatter.format(_1, encoding: nil) }
-        end
         @array.each do |row|
           yield row.map{ Rexport::Formatter.format(_1, encoding: nil) }
         end
