@@ -20,4 +20,16 @@ class Rexport::ArrayExporterTest < ActiveSupport::TestCase
     CSV
   end
 
+  test 'to_csv(utf8bom)' do
+    Rexport.config.csv_default_encoding = Encoding::UTF_8
+    Rexport.config.csv_utf8_bom = false
+    array = [
+      ['abc日本語🍣'],
+    ]
+    exporter = Rexport::ArrayExporter.new(array)
+    assert_equal false, exporter.to_csv.start_with?("\uFEFF")
+    Rexport.config.csv_utf8_bom = true
+    assert_equal true, exporter.to_csv.start_with?("\uFEFF")
+  end
+
 end
