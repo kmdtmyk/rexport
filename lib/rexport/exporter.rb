@@ -5,14 +5,37 @@ module Rexport
       @records = records
     end
 
-    def each
-      if respond_to?(:headers)
-        yield headers.map{ self.class.encode(_1, encoding: nil) }
-      end
-      @records.ids.each_slice(1000) do |ids|
-        ids_to_a(ids).each do |row|
-          yield row.map{ self.class.encode(_1, encoding: nil) }
+    def each(batch_size: nil, format: nil)
+      if format == :csv
+
+        encoding ||= Rexport.config.csv_default_encoding
+
+        @records.ids.each_slice(batch_size || 1000).each_with_index do |ids, index|
+          csv_text = CSV.generate(force_quotes: true) do |csv|
+
+            if index == 0 && respond_to?(:headers)
+              csv << headers.map{ self.class.encode(_1, encoding:) }
+            end
+
+            ids_to_a(ids).each do |row|
+              csv << row.map{ self.class.encode(_1, encoding:) }
+            end
+          end
+
+          yield csv_text
         end
+
+      else
+
+        if respond_to?(:headers)
+          yield headers.map{ self.class.encode(_1, encoding: nil) }
+        end
+        @records.ids.each_slice(batch_size || 1000) do |ids|
+          ids_to_a(ids).each do |row|
+            yield row.map{ self.class.encode(_1, encoding: nil) }
+          end
+        end
+
       end
     end
 

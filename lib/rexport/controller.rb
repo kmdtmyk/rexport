@@ -10,7 +10,7 @@ module Rexport
         case format
         when :csv
           send_stream filename: do |stream|
-            exporter.to_csv do |data|
+            exporter.each(format: :csv) do |data|
               stream.write data
             end
           end
