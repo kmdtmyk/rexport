@@ -32,4 +32,15 @@ class Rexport::ArrayExporterTest < ActiveSupport::TestCase
     assert_equal true, exporter.to_csv.start_with?("\uFEFF")
   end
 
+  test 'to_csv(shift-jis)' do
+    Rexport.config.csv_default_encoding = Encoding::SJIS
+    array = [
+      ['abc日本語🍣'],
+    ]
+    exporter = Rexport::ArrayExporter.new(array)
+    assert_equal <<~CSV.encode(Encoding::SJIS), exporter.to_csv
+      "abc日本語?"
+    CSV
+  end
+
 end

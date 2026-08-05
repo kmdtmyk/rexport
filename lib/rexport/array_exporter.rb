@@ -16,10 +16,10 @@ module Rexport
 
         csv_text = CSV.generate(force_quotes: true) do |csv|
           if respond_to?(:headers)
-            csv << headers.map{ Rexport::Formatter.format(_1, encoding: nil) }
+            csv << headers.map{ Rexport::Formatter.format(_1, encoding:) }
           end
           @array.each do |row|
-            csv << row.map{ Rexport::Formatter.format(_1, encoding: nil) }
+            csv << row.map{ Rexport::Formatter.format(_1, encoding:) }
           end
         end
 
