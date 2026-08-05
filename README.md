@@ -25,7 +25,7 @@ $ rails g rexport:install
 Rexport.config.date_format = '%Y/%m/%d'
 Rexport.config.datetime_format = '%Y/%m/%d %H:%M:%S'
 Rexport.config.csv_default_encoding = Encoding::UTF_8
-
+Rexport.config.csv_utf8_bom = true
 ```
 
 ```ruby
