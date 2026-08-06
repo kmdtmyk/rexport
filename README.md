@@ -93,6 +93,24 @@ class BooksController < ApplicationController
 end
 ```
 
+### ArrayExporter
+
+```ruby
+class ExamplesController < ApplicationController
+
+  def index
+    array = [
+      ['id', 'name'],
+      [1, 'foo'],
+    ]
+    respond_to do |format|
+      format.csv{ send_export Rexport::ArrayExporter.new(array), filename: 'example', format: :csv }
+    end
+  end
+
+end
+```
+
 ## Contributing
 Contribution directions go here.
 
