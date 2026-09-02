@@ -1,7 +1,7 @@
 require "rexport/version"
 require "rexport/railtie"
 require "rexport/array_exporter"
-require "rexport/configration"
+require "rexport/configuration"
 require "rexport/controller"
 require "rexport/exporter"
 require "rexport/formatter"
