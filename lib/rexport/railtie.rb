@@ -3,7 +3,6 @@ module Rexport
 
     initializer 'rexport.controller' do
       ActiveSupport.on_load(:action_controller) do
-        include ActionController::Live
         include Rexport::Controller
       end
     end

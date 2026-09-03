@@ -2,6 +2,15 @@ require "test_helper"
 
 class BooksControllerTest < ActionDispatch::IntegrationTest
 
+  test 'controllers do not include ActionController::Live' do
+    assert_not_includes ApplicationController.ancestors, ActionController::Live
+    assert_not_includes BooksController.ancestors, ActionController::Live
+
+    live_controller_class = Rexport::Controller.live_controller_class
+    assert_nil live_controller_class.name
+    assert_includes live_controller_class.ancestors, ActionController::Live
+  end
+
   test 'books.csv' do
     Rexport.config.csv_default_encoding = Encoding::UTF_8
     Rexport.config.csv_utf8_bom = false
