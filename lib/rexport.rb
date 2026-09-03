@@ -5,6 +5,7 @@ require "rexport/configuration"
 require "rexport/controller"
 require "rexport/exporter"
 require "rexport/formatter"
+require "rexport/live_controller"
 require "csv"
 require "xlsxtream"
 

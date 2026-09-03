@@ -5,10 +5,7 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
   test 'controllers do not include ActionController::Live' do
     assert_not_includes ApplicationController.ancestors, ActionController::Live
     assert_not_includes BooksController.ancestors, ActionController::Live
-
-    live_controller_class = Rexport::Controller.live_controller_class
-    assert_nil live_controller_class.name
-    assert_includes live_controller_class.ancestors, ActionController::Live
+    assert_includes Rexport::LiveController.ancestors, ActionController::Live
   end
 
   test 'books.csv' do
