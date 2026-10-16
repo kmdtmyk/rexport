@@ -4,7 +4,7 @@ module Rexport
       source_root File.expand_path('templates', __dir__)
 
       def generate
-        template 'exporter.rb.tt', "app/exporters/#{name}_exporter.rb"
+        template 'exporter.rb.tt', "app/exporters/#{model_class.to_s.underscore}_exporter.rb"
       end
 
       private
