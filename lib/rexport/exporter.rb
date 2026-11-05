@@ -56,7 +56,7 @@ module Rexport
     end
 
     def ids_to_a(ids)
-      raise "#{self.class} に #{__method__} の実装が必要です"
+      raise NotImplementedError, "#{self.class} must implement the ##{__method__} method"
     end
 
   end
