@@ -44,6 +44,11 @@ class Rexport::ArrayExporterTest < ActiveSupport::TestCase
       "id"\r
       "1"\r
     CSV
+    Rexport.config.csv_default_row_sep = "\r\n"
+    assert_equal <<~CSV, exporter.to_csv
+      "id"\r
+      "1"\r
+    CSV
   end
 
   test 'to_csv(utf8bom)' do

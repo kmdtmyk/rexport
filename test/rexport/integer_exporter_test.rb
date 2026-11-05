@@ -37,6 +37,11 @@ class Rexport::IntegerExporterTest < ActiveSupport::TestCase
       "1"\r
       "2"\r
     CSV
+    Rexport.config.csv_default_row_sep = "\r\n"
+    assert_equal <<~CSV, exporter.to_csv
+      "1"\r
+      "2"\r
+    CSV
   end
 
   test 'each' do

@@ -9,7 +9,7 @@ module Rexport
       if format == :csv
 
         encoding ||= Rexport.config.csv_default_encoding
-        row_sep ||= CSV::DEFAULT_OPTIONS[:row_sep]
+        row_sep ||= Rexport.config.csv_default_row_sep
 
         if (encoding == nil || encoding == Encoding::UTF_8) && Rexport.config.csv_utf8_bom == true
           yield "\uFEFF"
