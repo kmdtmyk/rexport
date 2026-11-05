@@ -5,16 +5,17 @@ module Rexport
       @array = array
     end
 
-    def each(format: nil, encoding: nil)
+    def each(format: nil, encoding: nil, row_sep: nil)
       if format == :csv
 
         encoding ||= Rexport.config.csv_default_encoding
+        row_sep ||= CSV::DEFAULT_OPTIONS[:row_sep]
 
         if (encoding == nil || encoding == Encoding::UTF_8) && Rexport.config.csv_utf8_bom == true
           yield "\uFEFF"
         end
 
-        csv_text = CSV.generate(force_quotes: true) do |csv|
+        csv_text = CSV.generate(force_quotes: true, row_sep:) do |csv|
           @array.each do |row|
             csv << row.map{ Rexport::Formatter.format(_1, encoding:) }
           end
@@ -31,11 +32,11 @@ module Rexport
       end
     end
 
-    def to_csv(encoding: nil)
+    def to_csv(encoding: nil, row_sep: nil)
       # +'' で変更可能な文字列
       result = +''
 
-      each(format: :csv, encoding:) do |data|
+      each(format: :csv, encoding:, row_sep:) do |data|
         result << data
       end
 

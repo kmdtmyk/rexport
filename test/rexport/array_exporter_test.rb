@@ -20,6 +20,32 @@ class Rexport::ArrayExporterTest < ActiveSupport::TestCase
     CSV
   end
 
+  test 'to_csv(row_sep)' do
+    array = [
+      ['id'],
+      [1],
+    ]
+    exporter = Rexport::ArrayExporter.new(array)
+    # LF
+    assert_equal <<~CSV, exporter.to_csv(row_sep: :auto)
+      "id"
+      "1"
+    CSV
+    assert_equal <<~CSV, exporter.to_csv(row_sep: "\n")
+      "id"
+      "1"
+    CSV
+    assert_equal <<~CSV, exporter.to_csv(row_sep: nil)
+      "id"
+      "1"
+    CSV
+    # CRLF
+    assert_equal <<~CSV, exporter.to_csv(row_sep: "\r\n")
+      "id"\r
+      "1"\r
+    CSV
+  end
+
   test 'to_csv(utf8bom)' do
     Rexport.config.csv_default_encoding = Encoding::UTF_8
     Rexport.config.csv_utf8_bom = false
