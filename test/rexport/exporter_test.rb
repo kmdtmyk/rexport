@@ -2,6 +2,31 @@ require "test_helper"
 
 class Rexport::ExporterTest < ActiveSupport::TestCase
 
+  test 'each' do
+    (1..3).each do |i|
+      Sample.create!(integer: i)
+    end
+
+    exporter = IntegerExporter.new(Sample.all)
+
+    result = []
+    exporter.each do |data|
+      result << data
+    end
+    assert_equal [
+      [1], [2], [3],
+    ], result
+
+    result = []
+    exporter.each(batch_size: 2, format: :csv) do |data|
+      result << data
+    end
+    assert_equal [
+      "1\n2\n",
+      "3\n"
+    ], result
+  end
+
   test 'to_csv(force_quotes)' do
     Sample.create!(integer: 1)
     exporter = IntegerExporter.new(Sample.all)
