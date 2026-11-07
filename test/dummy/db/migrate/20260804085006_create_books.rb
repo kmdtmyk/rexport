@@ -11,6 +11,7 @@ class CreateBooks < ActiveRecord::Migration[8.1]
     create_table :samples do |t|
       t.string :string
       t.integer :integer
+      t.decimal :decimal
       t.date :date
       t.datetime :datetime
       t.timestamps
