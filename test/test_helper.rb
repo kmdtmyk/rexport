@@ -17,7 +17,12 @@ class ActiveSupport::TestCase
 
   def before_setup
     super
-    # テストではbom無しをデフォルトとする
+    # テストではテストコードを書きやすい設定をデフォルトとする
+    Rexport.config.date_format = nil
+    Rexport.config.datetime_format = nil
+    Rexport.config.csv_default_force_quotes = false
+    Rexport.config.csv_default_row_sep = :auto
+    Rexport.config.csv_default_encoding = Encoding::UTF_8
     Rexport.config.csv_utf8_bom = false
   end
 

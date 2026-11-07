@@ -10,6 +10,19 @@ class Rexport::BookExporterTest < ActiveSupport::TestCase
       release_date: Date.new(2026, 8, 6),
     )
     assert_equal <<~CSV, BookExporter.new(Book.all).to_csv
+      id,タイトル,価格,発売日
+      1,book1,100,2026-08-06
+    CSV
+  end
+
+  test 'to_csv(force_quotes)' do
+    Book.create!(
+      id: 1,
+      title:  'book1',
+      price: 100,
+      release_date: Date.new(2026, 8, 6),
+    )
+    assert_equal <<~CSV, BookExporter.new(Book.all).to_csv(force_quotes: true)
       "id","タイトル","価格","発売日"
       "1","book1","100","2026-08-06"
     CSV
@@ -17,7 +30,7 @@ class Rexport::BookExporterTest < ActiveSupport::TestCase
 
   test 'to_csv(0 record)' do
     assert_equal <<~CSV, BookExporter.new(Book.none).to_csv
-      "id","タイトル","価格","発売日"
+      id,タイトル,価格,発売日
     CSV
   end
 

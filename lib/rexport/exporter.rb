@@ -5,9 +5,12 @@ module Rexport
       @records = records
     end
 
-    def each(batch_size: nil, format: nil, encoding: nil, row_sep: nil)
+    def each(batch_size: nil, format: nil, encoding: nil, force_quotes: nil, row_sep: nil)
       if format == :csv
 
+        if force_quotes.nil?
+          force_quotes = Rexport.config.csv_default_force_quotes
+        end
         encoding ||= Rexport.config.csv_default_encoding
         row_sep ||= Rexport.config.csv_default_row_sep
 
@@ -16,11 +19,11 @@ module Rexport
         end
 
         if respond_to?(:headers)
-          yield CSV.generate_line(headers.map{ Rexport::Formatter.format(_1, encoding:) }, force_quotes: true, row_sep:)
+          yield CSV.generate_line(headers.map{ Rexport::Formatter.format(_1, encoding:) }, force_quotes:, row_sep:)
         end
 
         @records.ids.each_slice(batch_size || 1000).each_with_index do |ids, index|
-          csv_text = CSV.generate(force_quotes: true, row_sep:) do |csv|
+          csv_text = CSV.generate(force_quotes:, row_sep:) do |csv|
 
             ids_to_a(ids).each do |row|
               csv << row.map{ Rexport::Formatter.format(_1, encoding:) }
@@ -44,11 +47,11 @@ module Rexport
       end
     end
 
-    def to_csv(encoding: nil, row_sep: nil, batch_size: nil)
+    def to_csv(encoding: nil, force_quotes: nil, row_sep: nil, batch_size: nil)
       # +'' で変更可能な文字列
       result = +''
 
-      each(format: :csv, batch_size:, encoding:, row_sep:) do |data|
+      each(format: :csv, batch_size:, encoding:, force_quotes:, row_sep:) do |data|
         result << data
       end
 

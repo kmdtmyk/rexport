@@ -8,9 +8,9 @@ class Rexport::IntegerExporterTest < ActiveSupport::TestCase
     end
     exporter = IntegerExporter.new(Sample.all)
     assert_equal <<~CSV, exporter.to_csv
-      "1"
-      "2"
-      "3"
+      1
+      2
+      3
     CSV
   end
 
@@ -21,26 +21,26 @@ class Rexport::IntegerExporterTest < ActiveSupport::TestCase
     exporter = IntegerExporter.new(Sample.all)
     # LF
     assert_equal <<~CSV, exporter.to_csv(row_sep: :auto)
-      "1"
-      "2"
+      1
+      2
     CSV
     assert_equal <<~CSV, exporter.to_csv(row_sep: "\n")
-      "1"
-      "2"
+      1
+      2
     CSV
     assert_equal <<~CSV, exporter.to_csv(row_sep: nil)
-      "1"
-      "2"
+      1
+      2
     CSV
     # CRLF
     assert_equal <<~CSV, exporter.to_csv(row_sep: "\r\n")
-      "1"\r
-      "2"\r
+      1\r
+      2\r
     CSV
     Rexport.config.csv_default_row_sep = "\r\n"
     assert_equal <<~CSV, exporter.to_csv
-      "1"\r
-      "2"\r
+      1\r
+      2\r
     CSV
   end
 
@@ -64,8 +64,8 @@ class Rexport::IntegerExporterTest < ActiveSupport::TestCase
       result << data
     end
     assert_equal [
-      "\"1\"\n\"2\"\n",
-      "\"3\"\n"
+      "1\n2\n",
+      "3\n"
     ], result
   end
 
