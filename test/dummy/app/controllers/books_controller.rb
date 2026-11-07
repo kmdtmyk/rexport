@@ -8,6 +8,7 @@ class BooksController < ApplicationController
       format.html
       format.csv{ send_export BookExporter.new(@books), filename: 'books', format: :csv }
       format.xlsx{ send_export BookExporter.new(@books), filename: 'books', format: :xlsx }
+      format.png{ send_export BookExporter.new(@books), filename: 'books', format: :png } # error
     end
   end
 

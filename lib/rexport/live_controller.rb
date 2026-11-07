@@ -15,6 +15,8 @@ module Rexport
         send_csv
       when :xlsx
         send_xlsx
+      else
+        raise ActionController::UnknownFormat, "Unsupported export format: #{@format.inspect}"
       end
     end
 

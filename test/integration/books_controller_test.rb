@@ -43,4 +43,9 @@ class BooksControllerTest < ActionDispatch::IntegrationTest
     assert response.body.present?
   end
 
+  test 'books.png(error)' do
+    get '/books.png'
+    assert_response :not_acceptable
+  end
+
 end
