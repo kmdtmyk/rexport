@@ -15,4 +15,10 @@ class Rexport::BookExporterTest < ActiveSupport::TestCase
     CSV
   end
 
+  test 'to_csv(0 record)' do
+    assert_equal <<~CSV, BookExporter.new(Book.none).to_csv
+      "id","タイトル","価格","発売日"
+    CSV
+  end
+
 end

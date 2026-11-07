@@ -15,12 +15,12 @@ module Rexport
           yield "\uFEFF"
         end
 
+        if respond_to?(:headers)
+          yield CSV.generate_line(headers.map{ Rexport::Formatter.format(_1, encoding:) }, force_quotes: true, row_sep:)
+        end
+
         @records.ids.each_slice(batch_size || 1000).each_with_index do |ids, index|
           csv_text = CSV.generate(force_quotes: true, row_sep:) do |csv|
-
-            if index == 0 && respond_to?(:headers)
-              csv << headers.map{ Rexport::Formatter.format(_1, encoding:) }
-            end
 
             ids_to_a(ids).each do |row|
               csv << row.map{ Rexport::Formatter.format(_1, encoding:) }
