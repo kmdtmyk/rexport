@@ -49,32 +49,32 @@ class Rexport::ArrayExporterTest < ActiveSupport::TestCase
 
   test 'to_csv(row_sep)' do
     array = [
-      ['id'],
       [1],
+      [2],
     ]
     exporter = Rexport::ArrayExporter.new(array)
     # LF
     assert_equal <<~CSV, exporter.to_csv(row_sep: :auto)
-      id
       1
+      2
     CSV
     assert_equal <<~CSV, exporter.to_csv(row_sep: "\n")
-      id
       1
+      2
     CSV
     assert_equal <<~CSV, exporter.to_csv(row_sep: nil)
-      id
       1
+      2
     CSV
     # CRLF
     assert_equal <<~CSV, exporter.to_csv(row_sep: "\r\n")
-      id\r
       1\r
+      2\r
     CSV
     Rexport.config.csv_default_row_sep = "\r\n"
     assert_equal <<~CSV, exporter.to_csv
-      id\r
       1\r
+      2\r
     CSV
   end
 
