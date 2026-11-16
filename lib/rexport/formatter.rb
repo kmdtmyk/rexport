@@ -9,7 +9,7 @@ module Rexport
         if Rexport.config.date_format.present?
           value = I18n.l(value, format: Rexport.config.date_format)
         end
-      when Time
+      when Time, ActiveSupport::TimeWithZone
         if Rexport.config.datetime_format.present?
           value = I18n.l(value, format: Rexport.config.datetime_format)
         end
