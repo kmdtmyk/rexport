@@ -52,6 +52,28 @@ class Rexport::ExporterTest < ActiveSupport::TestCase
     CSV
   end
 
+  test 'to_csv(force_quotes) priority' do
+    Sample.create!(integer: 1)
+    exporter_class = Class.new(Rexport::Exporter) do
+      force_quotes true
+
+      def ids_to_a(ids)
+        Sample.find(ids).map do
+          [1, 2]
+        end
+      end
+    end
+    exporter = exporter_class.new(Sample.all)
+
+    Rexport.config.csv_default_force_quotes = false
+    assert_equal <<~CSV, exporter.to_csv
+      "1","2"
+    CSV
+    assert_equal <<~CSV, exporter.to_csv(force_quotes: false)
+      1,2
+    CSV
+  end
+
   test 'to_csv(row_sep)' do
     (1..2).each do |i|
       Sample.create!(integer: i)
