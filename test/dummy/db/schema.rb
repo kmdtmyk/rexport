@@ -23,6 +23,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_04_085006) do
   end
 
   create_table "samples", force: :cascade do |t|
+    t.boolean "boolean", default: false, null: false
     t.datetime "created_at", null: false
     t.date "date"
     t.datetime "datetime"

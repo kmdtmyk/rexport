@@ -14,6 +14,7 @@ class CreateBooks < ActiveRecord::Migration[8.1]
       t.decimal :decimal
       t.date :date
       t.datetime :datetime
+      t.boolean :boolean, null: false, default: false
       t.timestamps
     end
 
