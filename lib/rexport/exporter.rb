@@ -1,11 +1,11 @@
 module Rexport
   class Exporter
 
-    class_attribute :force_quotes_setting, instance_accessor: false, default: nil
-    private_class_method :force_quotes_setting, :force_quotes_setting=
+    class_attribute :csv_force_quotes_setting, instance_accessor: false, default: nil
+    private_class_method :csv_force_quotes_setting, :csv_force_quotes_setting=
 
-    def self.force_quotes(value)
-      send(:force_quotes_setting=, value)
+    def self.csv_force_quotes(value)
+      send(:csv_force_quotes_setting=, value)
     end
 
     def initialize(records)
@@ -16,7 +16,7 @@ module Rexport
       if format == :csv
 
         if force_quotes.nil?
-          force_quotes = self.class.send(:force_quotes_setting)
+          force_quotes = self.class.send(:csv_force_quotes_setting)
         end
         if force_quotes.nil?
           force_quotes = Rexport.config.csv_default_force_quotes

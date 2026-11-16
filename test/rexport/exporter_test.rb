@@ -55,7 +55,7 @@ class Rexport::ExporterTest < ActiveSupport::TestCase
   test 'to_csv(force_quotes) priority' do
     Sample.create!(integer: 1)
     exporter_class = Class.new(Rexport::Exporter) do
-      force_quotes true
+      csv_force_quotes true
 
       def ids_to_a(ids)
         Sample.find(ids).map do

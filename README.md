@@ -51,6 +51,9 @@ $ rails g rexport:exporter book
 
 class BookExporter < Rexport::Exporter
 
+  # Configure force_quotes for this exporter class:
+  # csv_force_quotes true
+
   def headers
     [
       'id',
