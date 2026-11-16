@@ -19,6 +19,21 @@ class Rexport::StringExporterTest < ActiveSupport::TestCase
     CSV
   end
 
+  test 'to_csv(encoding) priority' do
+    Sample.create!(string: 'abc日本語🍣')
+    exporter_class = Class.new(StringExporter) do
+      csv_encoding Encoding::SJIS
+    end
+    exporter = exporter_class.new(Sample.all)
+
+    assert_equal <<~CSV.encode(Encoding::SJIS), exporter.to_csv
+      abc日本語?
+    CSV
+    assert_equal <<~CSV, exporter.to_csv(encoding: Encoding::UTF_8)
+      abc日本語🍣
+    CSV
+  end
+
   test 'to_csv(multiline and force_quotes: false)' do
     Sample.create!(string: "line1\nline2")
     exporter = StringExporter.new(Sample.all)

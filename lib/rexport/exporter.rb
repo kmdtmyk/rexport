@@ -1,8 +1,15 @@
 module Rexport
   class Exporter
 
+    class_attribute :csv_encoding_setting, instance_accessor: false, default: nil
+    private_class_method :csv_encoding_setting, :csv_encoding_setting=
+
     class_attribute :csv_force_quotes_setting, instance_accessor: false, default: nil
     private_class_method :csv_force_quotes_setting, :csv_force_quotes_setting=
+
+    def self.csv_encoding(value)
+      send(:csv_encoding_setting=, value)
+    end
 
     def self.csv_force_quotes(value)
       send(:csv_force_quotes_setting=, value)
@@ -20,6 +27,9 @@ module Rexport
         end
         if force_quotes.nil?
           force_quotes = Rexport.config.csv_default_force_quotes
+        end
+        if encoding.nil?
+          encoding = self.class.send(:csv_encoding_setting)
         end
         encoding ||= Rexport.config.csv_default_encoding
         row_sep ||= Rexport.config.csv_default_row_sep
