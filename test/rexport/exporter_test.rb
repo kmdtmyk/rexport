@@ -59,7 +59,7 @@ class Rexport::ExporterTest < ActiveSupport::TestCase
 
       def ids_to_a(ids)
         Sample.find(ids).map do
-          [1, 2]
+          [1, 2, 3]
         end
       end
     end
@@ -67,10 +67,13 @@ class Rexport::ExporterTest < ActiveSupport::TestCase
 
     Rexport.config.csv_default_force_quotes = false
     assert_equal <<~CSV, exporter.to_csv
-      "1","2"
+      "1","2","3"
     CSV
     assert_equal <<~CSV, exporter.to_csv(force_quotes: false)
-      1,2
+      1,2,3
+    CSV
+    assert_equal <<~CSV, exporter.to_csv(force_quotes: [1])
+      1,"2",3
     CSV
   end
 
